@@ -9,7 +9,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
-from imblearn.ensemble import BalancedRandomForestClassifier
 from tabulate import tabulate
 from sklearn.metrics import accuracy_score
 #traemos las variables categoricas con los nuevos valores numericos y actualizamos la data
@@ -61,13 +60,10 @@ rf = RandomForestClassifier(max_depth=2, random_state=0)
 rf.fit(X_train, y_train)
 rf_yhat = rf.predict(X_test)
 
-# 6. Balanced Random Forest
-brf = BalancedRandomForestClassifier(random_state=0, max_depth=4)
-brf.fit(X_train, y_train)
-brf_yhat = brf.predict(X_test)
-models = [tree_model, knn, lr, svm, rf, brf]
-yEst = [tree_yhat,knn_yhat,lr_yhat, svm_yhat, rf_yhat, brf_yhat]
-modNames = ['Decision Tree','KNeighbors','Logistic Regression','Support Vector Machines','Random Forest', 'Balanced Random Forest']
+
+models = [tree_model, knn, lr, svm, rf]
+yEst = [tree_yhat,knn_yhat,lr_yhat, svm_yhat, rf_yhat]
+modNames = ['Decision Tree','KNeighbors','Logistic Regression','Support Vector Machines','Random Forest']
 R = dict()
 for m in models:
     R[m] = dict()

@@ -10,7 +10,7 @@ Pillow==8.2.0
 PyWavelets==1.1.1
 PyYAML==5.4.1
 attrs==21.2.0
-category-encoders==2.2.2
+category_encoders==2.2.2
 certifi==2020.12.5
 chardet==4.0.0
 confuse==1.4.0
