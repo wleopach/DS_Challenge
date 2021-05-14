@@ -11,6 +11,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from tabulate import tabulate
 from sklearn.metrics import accuracy_score
+from sklearn.feature_selection import SelectFromModel
 #traemos las variables categoricas con los nuevos valores numericos y actualizamos la data
 numData = pd.DataFrame(numD)
 #Definimos un nuevo dataframe para conservar los valores originales en data y los transformados quedan en dataT
@@ -73,3 +74,17 @@ for m in models:
     R[m]['cross validate score'] = np.mean(scores)
 R=pd.DataFrame(data=R)
 print(tabulate(R, headers='keys', tablefmt='psql'))
+
+#Selección de los mejores predictores
+
+sel = SelectFromModel(rf)
+sel.fit(X_train, y_train)
+sel.get_support()
+selected_feat = X_train.columns[(sel.get_support())]
+print(selected_feat)
+imp = pd.DataFrame(rf.feature_importances_).transpose()
+imp.columns = ['ID_USER', 'genero', 'monto', 'fecha', 'hora', 'dispositivo',
+               'establecimiento', 'ciudad', 'tipo_tc', 'linea_tc', 'interes_tc',
+                'status_txn', 'is_prime', 'dcto', 'cashback']
+print(tabulate(imp, headers=imp.columns,tablefmt='psql'))
+print(rf_yhat)
